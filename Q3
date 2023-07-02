@@ -1,0 +1,10 @@
+Que 3: Write a PySpark code to read a JSON file named "students.json" containing student records with the following schema: "name" (string), "age" (integer), "grade" (string). Filter the DataFrame to include only students whose age is greater than 18.
+SOL :
+
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+
+df = spark.read.json("students.json")
+
+filtered_df = df.filter(df.age > 18)
+filtered_df.show()
