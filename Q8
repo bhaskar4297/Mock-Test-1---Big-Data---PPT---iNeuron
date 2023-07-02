@@ -1,0 +1,9 @@
+Que 8 : Retrieve the names of all products that are currently out of stock from the "Products" table.
+SOL :
+
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.getOrCreate()
+query = """ SELECT product_name FROM Products WHERE stock_quantity = 0 """
+results = spark.sql(query)
+results.show()
