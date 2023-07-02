@@ -1,0 +1,9 @@
+Q6 : Retrieve all the customers from the "Customers" table whose age is greater than 25 and have made at least one purchase.
+SOL :
+
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+
+query = """SELECT * FROM Customers WHERE age > 25 AND customer_id IN (SELECT DISTINCT customer_id FROM Purchases)"""
+results = spark.sql(query)
+results.show()
