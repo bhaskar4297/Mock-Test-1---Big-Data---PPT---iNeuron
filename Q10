@@ -1,0 +1,11 @@
+Q 10 :Retrieve the top 5 customers who have spent the highest total amount on purchases in laymen term without using rank and window
+SOL :
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import desc
+spark = SparkSession.builder.getOrCreate()
+
+customer_totals = purchases.groupBy("customer_id").sum("amount").withColumnRenamed("sum(amount)", "total_amount")
+sorted_customer_totals = customer_totals.sort(desc("total_amount"))
+top_5_customers = sorted_customer_totals.limit(5)
+top_5_customers.show()
