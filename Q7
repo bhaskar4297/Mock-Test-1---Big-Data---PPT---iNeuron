@@ -1,0 +1,10 @@
+Que 7 : Find the total number of orders placed by each customer and display the results in descending order of the number of orders.
+SOL :
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import desc
+spark = SparkSession.builder.getOrCreate()
+
+order_counts = orders.groupBy("customer_id").count()
+sorted_counts = order_counts.orderBy(desc("count"))
+sorted_counts.show()
