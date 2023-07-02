@@ -1,0 +1,11 @@
+Que 5 : Given a PySpark DataFrame named "logs" with columns "timestamp" (timestamp) and "event" (string), write a code to count the number of events that occurred in each hour and display the result sorted by the hour.
+SOL : 
+
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import hour,count
+spark = SparkSession.builder.getOrCreate()
+
+df_hour = logs.withColumn("hour", hour(logs.timestamp))
+df_event_count = df_hour.groupBy("hour").agg(count("event").alias("event_count"))
+df_sorted = df_event_count.orderBy("hour")
+df_sorted.show()
